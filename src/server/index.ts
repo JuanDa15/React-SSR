@@ -4,9 +4,26 @@ import { render } from "./render";
 
 const app: Express = express();
 
+
+app.use(express.static('dist'));
+
+app.get('/galaxias', async (req: Request, res: Response) => {
+  try {
+    const galaxias = await fetch('https://images-api.nasa.gov/search?q=galaxies')
+    const data = await galaxias.json()
+    const initialProps = {
+      galaxies: data.collection.items
+    }
+
+    return res.send(render(req.url, initialProps))
+  } catch (error) {
+    throw new Error("An error occurred fetching galaxies")
+  }
+})
 app.get('*', (req: Request, res: Response) => {
   res.send(render(req.url));
 })
+
 
 
 app.listen(CONFIG.PORT, () => {

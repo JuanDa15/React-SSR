@@ -1,5 +1,4 @@
 const path = require('path')
-const HTMLWebpackPlugin = require('html-webpack-plugin');
 const dotenv = require('dotenv')
 
 dotenv.config()
@@ -50,11 +49,7 @@ module.exports = {
       },
     ]
   },
-  plugins: [
-    new HTMLWebpackPlugin({
-      template: './src/public/index.html',
-    })
-  ],
+  plugins: [],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
@@ -65,3 +60,5 @@ module.exports = {
     historyApiFallback: true
   },
 };
+// Se borra el plugin de html porque lo que hace es crear un archivo HTML,
+// pero no lo necesitamos porqué estamos mandando el HTML desde el servidor

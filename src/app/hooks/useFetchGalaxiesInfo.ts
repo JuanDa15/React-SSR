@@ -11,6 +11,14 @@ export const useFetchGalaxiesInfo = () => {
   const [galaxies, setGalaxies] = useState([])
 
   useEffect(() => {
+    const prefetchData = window.__INITIAL_PROPS__.galaxies
+    
+    if (prefetchData) {
+      setGalaxies(prefetchData)
+      setRequestStatus(COMPLETED_STATUS)
+      return
+    }
+
     setRequestStatus(LOADING_STATUS)
     getGalaxiesJSON()
       .then(data => {
